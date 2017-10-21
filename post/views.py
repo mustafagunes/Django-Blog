@@ -1,6 +1,7 @@
-from django.shortcuts import render, HttpResponse, get_object_or_404, HttpResponseRedirect
+from django.shortcuts import render, HttpResponse, get_object_or_404, HttpResponseRedirect, redirect
 from .models import Post
 from .forms import PostForm
+from django.contrib import messages
 
 
 def post_index(request):
@@ -38,8 +39,10 @@ def post_create(request):
     #    form = PostForm()
     
     form = PostForm(request.POST or None)
+    
     if form.is_valid():
         post = form.save()
+        messages.success(request, 'Başarılı bir şekilde oluşturdunuz !')
         return HttpResponseRedirect(post.get_absolute_url())
 
     context = {
@@ -50,10 +53,15 @@ def post_create(request):
 
 
 def post_update(request, id):
+    
     post = get_object_or_404(Post, id=id)
     form = PostForm(request.POST or None, instance=post)
+    
     if form.is_valid():
         form.save()
+        messages.success(request, 'Başarılı bir şekilde oluşturdunuz !')
+        return HttpResponseRedirect(post.get_absolute_url())
+    
     context = {
         'form': form,
     }
@@ -61,5 +69,7 @@ def post_update(request, id):
     return render(request, 'post/form.html', context)
 
 
-def post_delete(request):
-    return HttpResponse('Burası Post delete Sayfası !')
+def post_delete(request, id):
+        post = get_object_or_404(Post, id=id)
+        post.delete()
+        return redirect('post:index')
