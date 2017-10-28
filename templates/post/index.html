@@ -19,6 +19,7 @@
                     {% endif %}
                     
                     <h3>{{ post.title }}<small> {{ post.publishing_date|timesince }} önce</small></h3>
+                    <h4>Yazar: {{ post.user.get_full_name }}</h4>
                     <p>{{ post.content|safe|linebreaks|truncatechars:150 }}</p>
                     <p><a href="{{ post.get_absolute_url }}" class="btn btn-primary" role="button">İncele</a>
                         {% if request.user.is_authenticated %}
