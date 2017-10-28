@@ -37,9 +37,12 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="pagination">
+
+                <!-- BOOTSTRAP SAYFASINDAN PAGİNATİON KISMINDAN İLERİ-GERİ SAYFA GEÇİŞ TUŞLARINI GÖRSELLEŞTİR ! -->
+
                 <span class="step-links">
                     {% if posts.has_previous %}
-                        <a href="?sayfa={{ posts.previous_page_number }}">Geri</a>
+                        <a href="?sayfa={{ posts.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Geri</a>
                     {% endif %}
             
                     <span class="current">
@@ -47,7 +50,7 @@
                     </span>
             
                     {% if posts.has_next %}
-                        <a href="?sayfa={{ posts.next_page_number }}">İleri</a>
+                        <a href="?sayfa={{ posts.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">İleri</a>
                     {% endif %}
                 </span>
             </div>
