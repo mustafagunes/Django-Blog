@@ -3,10 +3,24 @@ from .models import Post
 from .forms import PostForm, CommentForm
 from django.contrib import messages
 from django.utils.text import slugify
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def post_index(request):
-    posts = Post.objects.all()
+    post_list = Post.objects.all()
+
+    paginator = Paginator(post_list, 5) # Show 25 contacts per page
+
+    page = request.GET.get('sayfa')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        posts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        posts = paginator.page(paginator.num_pages)
+
     return render(request, 'post/index.html', {'posts': posts})
 
 
