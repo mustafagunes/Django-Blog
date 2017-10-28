@@ -1,3 +1,4 @@
 {
+    "python.pythonPath": "/home/gunes/Masaüstü/blogg/venv/bin/python",
     "python.linting.pylintEnabled": false
 }
