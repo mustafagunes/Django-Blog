@@ -10,9 +10,9 @@
                     <form method="POST" enctype="multipart/form-data"> 
                             {% csrf_token %} <!-- csrf bir saldırılarını engellemek için csrf_token kullandık ! -->
                         
-                            <h1>Form</h1>
+                            <h1>{{ title }}</h1>
                             {{ form|crispy }}
-                            <input class="btn btn-primary" type="submit" value="Giriş Yap">
+                            <input class="btn btn-primary" type="submit" value="{{ title }}">
                         
                     </form>
             </div>
